@@ -2,7 +2,10 @@ class Orbs
   attr_reader :color
 
   def initialize(color=nil)
-
+    if(color!=nil)
+      @color=color
+      return
+    end
 
     case rand(0..4)
     when 0
@@ -22,7 +25,7 @@ class Orbs
     self.color==other.color
   end
   def to_s
-     return self.color
+    return self.color
   end
 end
 
