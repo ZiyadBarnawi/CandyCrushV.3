@@ -17,13 +17,13 @@ class Board
       @board[1][0]=Orbs.new("Yellow")
       @board[2][0]=Orbs.new("Red")
       @board[3][0]=Orbs.new("Red")
-      @board[4][0]=Orbs.new("Red")
+      @board[4][0]=Orbs.new("Green")
 
       @board[0][1]=Orbs.new("Green")
       @board[1][1]=Orbs.new("Red")
       @board[2][1]=Orbs.new("Puple")
       @board[3][1]=Orbs.new("Green")
-      @board[4][1]=Orbs.new("Yellow")
+      @board[4][1]=Orbs.new("Green")
 
       @board[0][2]=Orbs.new("Red")
       @board[1][2]=Orbs.new("Purple")
@@ -43,6 +43,7 @@ class Board
       @board[3][4]=Orbs.new("Red")
       @board[4][4]=Orbs.new("Blue")
 
+    self.initialRemoveMatchs()
       return
     end
     for row in @board
@@ -55,7 +56,7 @@ class Board
   def [](index)
     return self.board[index]
   end
-
+  #Prints the board
   def printBoard
     puts
     puts
@@ -85,19 +86,7 @@ class Board
 
     end
   end
-  #reverses the unallowed move
-  # def reverseMove(row,column,direction)
-  #   case direction
-  #   when "right"
-  #     generalMoveOrb(row,column,direction)
-  #   when "left"
-  #     generalMoveOrb(row,column,direction)
-  #   when "up"
-  #     generalMoveOrb(row,column,direction)
-  #   when "down"
-  #   generalMoveOrb(row,column,direction)
-  #   end
-  # end
+
   #a general method for moving an orb that checks if the move is allowed
   def generalMoveOrb(row,column,direction)
 
@@ -176,123 +165,114 @@ class Board
     end
     return match
   end
-
-
-
-
-  def anyMatchOrReverse2?(initial=false)
+  #checks if there's a match in the baord and if not it will reverse the move
+  def anyMatchOrReverse?(initial=false)
     row=0
     column=0
-    while (row<4)
+    while (row<=4)
       if([self.board[row][0].color,self.board[row][1].color,self.board[row][2].color,self.board[row][3].color,self.board[row][4].color].uniq.length==1)
-        removeOrbs([true,row,0,5,"row"])
+        removeOrbs([true,row,0,5,"row"],!initial)
         self.printBoard
+        if(initial)
         @score+=5
+        end
         return true
 
       elsif([self.board[row][0].color,self.board[row][1].color,self.board[row][2].color,self.board[row][3].color].uniq.length==1)
-        removeOrbs([true,row,0,4,"row"])
+        removeOrbs([true,row,0,4,"row"],!initial)
         self.printBoard
+        if(initial)
         @score+=4
+       end
         return true
 
       elsif([self.board[row][1].color,self.board[row][2].color,self.board[row][3].color,self.board[row][4].color].uniq.length==1)
-        removeOrbs([true,row,1,4,"row"])
+        removeOrbs([true,row,1,4,"row"],!initial)
         self.printBoard
+        if(initial)
         @score+=4
+        end
         return true
 
       elsif([self.board[row][2].color,self.board[row][3].color,self.board[row][4].color].uniq.length==1)
-        removeOrbs([true,row,2,3,"row"])
+        removeOrbs([true,row,2,3,"row"],!initial)
         self.printBoard
+        if(initial)
         @score+=3
+       end
         return true
 
       elsif([self.board[row][1].color,self.board[row][2].color,self.board[row][3].color].uniq.length==1)
-        removeOrbs([true,row,1,3,"row"])
+        removeOrbs([true,row,1,3,"row"],!initial)
         self.printBoard
+       if(initial)
         @score+=3
+       end
         return true
 
       elsif([self.board[row][0].color,self.board[row][1].color,self.board[row][2].color].uniq.length==1)
-        removeOrbs([true,row,0,3,"row"])
+        removeOrbs([true,row,0,3,"row"],!initial)
         self.printBoard
+       if(initial)
         @score+=3
+       end
         return true
       end
       row+=1
     end
-    while (column<4)
+    while (column<=4)
       if([self.board[0][column].color,self.board[1][column].color,self.board[2][column].color,self.board[3][column].color,self.board[4][column].color].uniq.length==1)
-        removeOrbs([true,0,column,5,"column"])
+        removeOrbs([true,0,column,5,"column"],!initial)
         self.printBoard
+        if(initial)
         @score+=5
+        end
         return true
 
       elsif([self.board[1][column].color,self.board[2][column].color,self.board[3][column].color,self.board[4][column].color].uniq.length==1)
-        removeOrbs([true,1,column,4,"column"])
+        removeOrbs([true,1,column,4,"column"],!initial)
         self.printBoard
+        if(initial)
         @score+=4
+        end
         return true
 
       elsif([self.board[0][column].color,self.board[1][column].color,self.board[2][column].color,self.board[3][column].color].uniq.length==1)
-        removeOrbs([true,0,column,4,"column"])
+        removeOrbs([true,0,column,4,"column"],!initial)
         self.printBoard
+        if(initial)
         @score+=4
+        end
         return true
 
       elsif([self.board[2][column].color,self.board[3][column].color,self.board[4][column].color].uniq.length==1)
-        removeOrbs([true,2,column,3,"column"])
+        removeOrbs([true,2,column,3,"column"],!initial)
         self.printBoard
+        if(initial)
         @score+=3
+        end
         return true
 
       elsif([self.board[1][column].color,self.board[2][column].color,self.board[3][column].color].uniq.length==1)
-        removeOrbs([true,1,column,3,"column"])
+        removeOrbs([true,1,column,3,"column"],!initial)
         self.printBoard
+        if(initial)
         @score+=3
+        end
         return true
 
       elsif([self.board[0][column].color,self.board[1][column].color,self.board[2][column].color].uniq.length==1)
-        removeOrbs([true,0,column,3,"column"])
+        removeOrbs([true,0,column,3,"column"],!initial)
+        if(initial)
         @score+=3
+        end
         return true
       end
       column+=1
     end
     return false
   end
-  #  def anyMatchOrReverse?(row,column,direction)
-
-  #   rowMatch1=anyMatchRowHelper(0)
-  #   rowMatch2=anyMatchRowHelper(1)
-  #   rowMatch3=anyMatchRowHelper(2)
-  #   rowMatch4=anyMatchRowHelper(3)
-  #   rowMatch5=anyMatchRowHelper(4)
-  #   columnMatch1=anyMatchColumnHelper(0)
-  #   columnMatch2=anyMatchColumnHelper(1)
-  #   columnMatch3=anyMatchColumnHelper(2)
-  #   columnMatch4=anyMatchColumnHelper(3)
-  #   columnMatch5=anyMatchColumnHelper(4)
-  #     #the last part could have been any varible in the if
-  #   if([rowMatch1, rowMatch2, rowMatch3,rowMatch4,rowMatch5, columnMatch1, columnMatch2, columnMatch3,columnMatch4,columnMatch5].uniq.length==1&&rowMatch1[0]==false)
-  #     puts("No matches")
-  #     generalMoveOrb(row,column,direction)
-  #     return false
-  #   else
-
-  #     matchInfo=[rowMatch1, rowMatch2, rowMatch3, rowMatch4, rowMatch5 , columnMatch1, columnMatch2, columnMatch3 , columnMatch4 , columnMatch5].find(){
-  #       |arr|
-  #       arr[0]==true
-  #     }
-  #     puts
-  #     puts("Match! at row #{matchInfo[1]+1} and column #{matchInfo[2]+1}"  )
-  #     removeOrbs(matchInfo)
-  #     return true
-  #   end
-
-  # end
-
+  #remove the orbs that are matching
   def removeOrbs(matchInfo=[],message=true)
     #
     #matchInfo=[state,row,column,length,"rowOrColumn"]
@@ -441,9 +421,10 @@ class Board
     end
     return true
   end
+  #remove inital matches in the board aapon creation
   def initialRemoveMatchs
 
-    while(anyMatchOrReverse2?())
+    while(anyMatchOrReverse?(true))
 
     end
 
@@ -452,10 +433,6 @@ end
 
 
 board = Board.new(true)
-# board[1][1]="Blue"
-# board[2][1]="Blue"
-# board[3][1]="Blue"
-# board[4][0]="Blue"
 board.printBoard()
 
 print("Row index👉 ")
@@ -465,23 +442,20 @@ puts
 print("Column index👉 ")
 # column=gets().chomp!()
 column=1
-print("direction 👉")
+print("direction👉 ")
 # direction=gets().chomp!()
-direction="up"
+direction="right"
 
 board.generalMoveOrb(row.to_i,column.to_i,direction)
 # streak=1
 while(true)
-  if( board.anyMatchOrReverse2?())
+  if( board.anyMatchOrReverse?())
     board.printBoard()
     next
   else
     break
   end
 end
-# board.reverseMove(1,1,"down")
-# board.printBoard
-#  board.printBoard()
-#  board.generalMoveOrb(5,5,"left")
-#  board.anyMatchOrReverse?(5,5,"left")
-#  board.printBoard()
+board.printBoard()
+puts("you got #{board.score}")
+
