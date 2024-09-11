@@ -3,7 +3,7 @@ class Orbs
 
   def initialize(color=nil)
     if(color!=nil)
-      @color=color
+      @color=color.strip()
       return
     end
 
