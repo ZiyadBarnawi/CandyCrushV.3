@@ -7,12 +7,14 @@ class Board
     @score=0
     @board=[]
     self.refresh()
-
+    until(self.potentialMatchOrRefresh?)
+      next
+    end
     if(fixed)
       self.fixed()
     end
-    self.printBoard()
     self.initialRemoveMatchs()
+    self.printBoard()
   end
   def fixed()
 
@@ -519,37 +521,4 @@ class Board
   end
   #Helps the potintialMatch? method by checking if there a a match. the code is similar to the anyMatch? but in the same time differant to be it's own function
   end
-board = Board.new(true)
-board.printBoard()
-for i in 1..5
-
-print("Row index👉 ")
-row=gets().chomp!()
-# row=2
-puts
-print("Column index👉 ")
-column=gets().chomp!()
-# column=2
-print("direction👉 ")
-direction=gets().chomp!()
-# direction="left"
-
-board.generalMoveOrb(row.strip().to_i(),column.strip().to_i,direction.strip())
-
-while(true)
-  if( board.anyMatch?())
-    board.printBoard()
-    board.potintialMatch?()
-    next
-  else
-    board.potentialMatchOrRefresh?()
-    break
-  end
-end
-until(board.potentialMatchOrRefresh?())
-  next
-end
-# board.printBoard()
-end
-puts("you got #{board.score}")
 
