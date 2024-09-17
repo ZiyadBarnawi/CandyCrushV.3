@@ -33,4 +33,4 @@ for i in 1..5
   end
   # board.printBoard()
 end
-puts("you got #{board.score}")
+puts("you got #{board.score} points!!")
